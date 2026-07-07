@@ -86,11 +86,13 @@ textarea {
   align-items: center;
   justify-content: center;
   min-height: 92rpx;
+  padding: 0 24rpx;
   margin: 0;
   border-radius: 14rpx;
   font-size: 30rpx;
   font-weight: 700;
-  line-height: 1;
+  line-height: normal;
+  text-align: center;
 }
 
 .button-primary {
@@ -102,6 +104,11 @@ textarea {
   border: 2rpx solid #d8dfd2;
   background: #ffffff;
   color: #152018;
+}
+
+.button-primary.section,
+.button-secondary.section {
+  margin-top: 28rpx;
 }
 
 .field {
@@ -133,6 +140,10 @@ textarea {
   gap: 16rpx;
 }
 
+.card > .row + .row {
+  margin-top: 22rpx;
+}
+
 .row > .field {
   flex: 1;
 }
@@ -144,6 +155,9 @@ textarea {
 }
 
 .pill {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   min-height: 72rpx;
   padding: 0 22rpx;
   border: 2rpx solid #d8dfd2;
@@ -151,6 +165,8 @@ textarea {
   background: #ffffff;
   color: #344038;
   font-size: 26rpx;
+  line-height: normal;
+  text-align: center;
 }
 
 .pill.active {
@@ -171,6 +187,10 @@ textarea {
   border: 2rpx solid #e4e8dc;
   border-radius: 14rpx;
   background: #ffffff;
+}
+
+.item .row {
+  margin-top: 18rpx;
 }
 
 .item-title {
