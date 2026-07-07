@@ -1,66 +1,21 @@
-// pages/profile/profile.js
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const storage_1 = require("../../utils/storage");
 Page({
-
-    /**
-     * 页面的初始数据
-     */
     data: {
-
+        profile: (0, storage_1.getProfile)()
     },
-
-    /**
-     * 生命周期函数--监听页面加载
-     */
-    onLoad(options) {
-
-    },
-
-    /**
-     * 生命周期函数--监听页面初次渲染完成
-     */
-    onReady() {
-
-    },
-
-    /**
-     * 生命周期函数--监听页面显示
-     */
     onShow() {
-
+        this.setData({ profile: (0, storage_1.getProfile)() });
     },
-
-    /**
-     * 生命周期函数--监听页面隐藏
-     */
-    onHide() {
-
+    onInput(event) {
+        const field = event.currentTarget.dataset.field;
+        this.setData({
+            [`profile.${field}`]: Number(event.detail.value) || 0
+        });
     },
-
-    /**
-     * 生命周期函数--监听页面卸载
-     */
-    onUnload() {
-
-    },
-
-    /**
-     * 页面相关事件处理函数--监听用户下拉动作
-     */
-    onPullDownRefresh() {
-
-    },
-
-    /**
-     * 页面上拉触底事件的处理函数
-     */
-    onReachBottom() {
-
-    },
-
-    /**
-     * 用户点击右上角分享
-     */
-    onShareAppMessage() {
-
+    save() {
+        (0, storage_1.saveProfile)(this.data.profile);
+        wx.showToast({ title: "已保存", icon: "success" });
     }
-})
+});

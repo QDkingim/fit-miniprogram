@@ -1,5 +1,5 @@
 {
-    "description": "fitness tracker miniprogram",
+    "description": "秤了么 - 新手减脂增肌记录小程序",
     "packOptions": {
         "ignore": [],
         "include": []
@@ -20,7 +20,8 @@
     },
     "compileType": "miniprogram",
     "libVersion": "3.16.2",
-    "projectname": "fat-loss-muscle-gain-tracker",
+    "appid": "wx07d902659796e2b3",
+    "projectname": "chengleme",
     "condition": {},
     "editorSetting": {
         "tabIndent": "insertSpaces",

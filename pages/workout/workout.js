@@ -1,66 +1,39 @@
-// pages/workout/workout.js
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const date_1 = require("../../utils/date");
+const plan_1 = require("../../utils/plan");
+const storage_1 = require("../../utils/storage");
 Page({
-
-    /**
-     * 页面的初始数据
-     */
     data: {
-
+        date: (0, date_1.todayKey)(),
+        exercises: plan_1.defaultExercises
     },
-
-    /**
-     * 生命周期函数--监听页面加载
-     */
-    onLoad(options) {
-
-    },
-
-    /**
-     * 生命周期函数--监听页面初次渲染完成
-     */
-    onReady() {
-
-    },
-
-    /**
-     * 生命周期函数--监听页面显示
-     */
     onShow() {
-
+        const date = (0, date_1.todayKey)();
+        const log = (0, storage_1.getWorkoutLogs)().find((item) => item.date === date);
+        this.setData({
+            date,
+            exercises: log?.exercises || plan_1.defaultExercises.map((item) => ({ ...item }))
+        });
     },
-
-    /**
-     * 生命周期函数--监听页面隐藏
-     */
-    onHide() {
-
+    onExerciseInput(event) {
+        const index = Number(event.currentTarget.dataset.index);
+        const field = event.currentTarget.dataset.field;
+        this.setData({
+            [`exercises[${index}].${field}`]: Number(event.detail.value) || undefined
+        });
     },
-
-    /**
-     * 生命周期函数--监听页面卸载
-     */
-    onUnload() {
-
+    toggleDone(event) {
+        const index = Number(event.currentTarget.dataset.index);
+        this.setData({
+            [`exercises[${index}].done`]: !this.data.exercises[index].done
+        });
     },
-
-    /**
-     * 页面相关事件处理函数--监听用户下拉动作
-     */
-    onPullDownRefresh() {
-
-    },
-
-    /**
-     * 页面上拉触底事件的处理函数
-     */
-    onReachBottom() {
-
-    },
-
-    /**
-     * 用户点击右上角分享
-     */
-    onShareAppMessage() {
-
+    save() {
+        (0, storage_1.saveWorkoutLog)({
+            date: this.data.date,
+            exercises: this.data.exercises
+        });
+        wx.showToast({ title: "已保存", icon: "success" });
     }
-})
+});

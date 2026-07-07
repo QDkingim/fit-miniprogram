@@ -1,66 +1,61 @@
-// pages/checkin/checkin.js
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const date_1 = require("../../utils/date");
+const storage_1 = require("../../utils/storage");
+const flags = ["protein", "carb", "vegetable", "sugarFree"];
 Page({
-
-    /**
-     * 页面的初始数据
-     */
     data: {
-
+        date: (0, date_1.todayKey)(),
+        weightKg: "",
+        waistCm: "",
+        steps: "",
+        sleepHours: "",
+        waterLiters: "",
+        dietMap: {
+            protein: false,
+            carb: false,
+            vegetable: false,
+            sugarFree: false
+        }
     },
-
-    /**
-     * 生命周期函数--监听页面加载
-     */
-    onLoad(options) {
-
-    },
-
-    /**
-     * 生命周期函数--监听页面初次渲染完成
-     */
-    onReady() {
-
-    },
-
-    /**
-     * 生命周期函数--监听页面显示
-     */
     onShow() {
-
+        const date = (0, date_1.todayKey)();
+        const log = (0, storage_1.getDailyLogs)().find((item) => item.date === date);
+        const dietMap = {
+            protein: !!log?.dietFlags.includes("protein"),
+            carb: !!log?.dietFlags.includes("carb"),
+            vegetable: !!log?.dietFlags.includes("vegetable"),
+            sugarFree: !!log?.dietFlags.includes("sugarFree")
+        };
+        this.setData({
+            date,
+            weightKg: log?.weightKg || "",
+            waistCm: log?.waistCm || "",
+            steps: log?.steps || "",
+            sleepHours: log?.sleepHours || "",
+            waterLiters: log?.waterLiters || "",
+            dietMap
+        });
     },
-
-    /**
-     * 生命周期函数--监听页面隐藏
-     */
-    onHide() {
-
+    onInput(event) {
+        const field = event.currentTarget.dataset.field;
+        this.setData({ [field]: event.detail.value });
     },
-
-    /**
-     * 生命周期函数--监听页面卸载
-     */
-    onUnload() {
-
+    toggleDiet(event) {
+        const flag = event.currentTarget.dataset.flag;
+        this.setData({ [`dietMap.${flag}`]: !this.data.dietMap[flag] });
     },
-
-    /**
-     * 页面相关事件处理函数--监听用户下拉动作
-     */
-    onPullDownRefresh() {
-
-    },
-
-    /**
-     * 页面上拉触底事件的处理函数
-     */
-    onReachBottom() {
-
-    },
-
-    /**
-     * 用户点击右上角分享
-     */
-    onShareAppMessage() {
-
+    save() {
+        const dietFlags = flags.filter((flag) => this.data.dietMap[flag]);
+        (0, storage_1.saveDailyLog)({
+            date: this.data.date,
+            weightKg: Number(this.data.weightKg) || undefined,
+            waistCm: Number(this.data.waistCm) || undefined,
+            steps: Number(this.data.steps) || undefined,
+            sleepHours: Number(this.data.sleepHours) || undefined,
+            waterLiters: Number(this.data.waterLiters) || undefined,
+            dietFlags
+        });
+        wx.showToast({ title: "已保存", icon: "success" });
     }
-})
+});

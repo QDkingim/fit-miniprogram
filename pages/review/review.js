@@ -1,66 +1,18 @@
-// pages/review/review.js
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const storage_1 = require("../../utils/storage");
+const stats_1 = require("../../utils/stats");
 Page({
-
-    /**
-     * 页面的初始数据
-     */
     data: {
-
+        stats: (0, stats_1.buildReviewStats)([], [], []),
+        weightDeltaText: "--"
     },
-
-    /**
-     * 生命周期函数--监听页面加载
-     */
-    onLoad(options) {
-
-    },
-
-    /**
-     * 生命周期函数--监听页面初次渲染完成
-     */
-    onReady() {
-
-    },
-
-    /**
-     * 生命周期函数--监听页面显示
-     */
     onShow() {
-
-    },
-
-    /**
-     * 生命周期函数--监听页面隐藏
-     */
-    onHide() {
-
-    },
-
-    /**
-     * 生命周期函数--监听页面卸载
-     */
-    onUnload() {
-
-    },
-
-    /**
-     * 页面相关事件处理函数--监听用户下拉动作
-     */
-    onPullDownRefresh() {
-
-    },
-
-    /**
-     * 页面上拉触底事件的处理函数
-     */
-    onReachBottom() {
-
-    },
-
-    /**
-     * 用户点击右上角分享
-     */
-    onShareAppMessage() {
-
+        const stats = (0, stats_1.buildReviewStats)((0, storage_1.getDailyLogs)(), (0, storage_1.getWorkoutLogs)(), (0, storage_1.getCardioLogs)());
+        const weightDeltaText = typeof stats.weightDelta === "number" ? `${stats.weightDelta > 0 ? "+" : ""}${stats.weightDelta}kg` : "--";
+        this.setData({
+            stats,
+            weightDeltaText
+        });
     }
-})
+});

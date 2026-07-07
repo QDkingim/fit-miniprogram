@@ -8,7 +8,7 @@
     "pages/profile/profile"
   ],
   "window": {
-    "navigationBarTitleText": "减脂增肌记录",
+    "navigationBarTitleText": "秤了吗",
     "navigationBarBackgroundColor": "#F7F8F3",
     "navigationBarTextStyle": "black",
     "backgroundColor": "#F7F8F3"
@@ -21,7 +21,7 @@
     "list": [
       {
         "pagePath": "pages/index/index",
-        "text": "今日"
+        "text": "今天"
       },
       {
         "pagePath": "pages/checkin/checkin",

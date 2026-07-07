@@ -1,66 +1,39 @@
-// pages/cardio/cardio.js
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const date_1 = require("../../utils/date");
+const storage_1 = require("../../utils/storage");
 Page({
-
-    /**
-     * 页面的初始数据
-     */
     data: {
-
+        date: (0, date_1.todayKey)(),
+        minutes: "35",
+        speed: "5.0",
+        incline: "5",
+        fatigue: "3"
     },
-
-    /**
-     * 生命周期函数--监听页面加载
-     */
-    onLoad(options) {
-
-    },
-
-    /**
-     * 生命周期函数--监听页面初次渲染完成
-     */
-    onReady() {
-
-    },
-
-    /**
-     * 生命周期函数--监听页面显示
-     */
     onShow() {
-
+        const date = (0, date_1.todayKey)();
+        const log = (0, storage_1.getCardioLogs)().find((item) => item.date === date);
+        this.setData({
+            date,
+            minutes: log?.minutes || "35",
+            speed: log?.speed || "5.0",
+            incline: log?.incline || "5",
+            fatigue: log?.fatigue || "3"
+        });
     },
-
-    /**
-     * 生命周期函数--监听页面隐藏
-     */
-    onHide() {
-
+    onInput(event) {
+        const field = event.currentTarget.dataset.field;
+        this.setData({ [field]: event.detail.value });
     },
-
-    /**
-     * 生命周期函数--监听页面卸载
-     */
-    onUnload() {
-
-    },
-
-    /**
-     * 页面相关事件处理函数--监听用户下拉动作
-     */
-    onPullDownRefresh() {
-
-    },
-
-    /**
-     * 页面上拉触底事件的处理函数
-     */
-    onReachBottom() {
-
-    },
-
-    /**
-     * 用户点击右上角分享
-     */
-    onShareAppMessage() {
-
+    save() {
+        (0, storage_1.saveCardioLog)({
+            date: this.data.date,
+            minutes: Number(this.data.minutes) || 0,
+            speed: Number(this.data.speed) || 0,
+            incline: Number(this.data.incline) || 0,
+            fatigue: Number(this.data.fatigue) || 3,
+            done: true
+        });
+        wx.showToast({ title: "已保存", icon: "success" });
     }
-})
+});
