@@ -1,0 +1,46 @@
+{
+  "pages": [
+    "pages/index/index",
+    "pages/checkin/checkin",
+    "pages/workout/workout",
+    "pages/cardio/cardio",
+    "pages/review/review",
+    "pages/profile/profile"
+  ],
+  "window": {
+    "navigationBarTitleText": "减脂增肌记录",
+    "navigationBarBackgroundColor": "#F7F8F3",
+    "navigationBarTextStyle": "black",
+    "backgroundColor": "#F7F8F3"
+  },
+  "tabBar": {
+    "color": "#697282",
+    "selectedColor": "#16A34A",
+    "backgroundColor": "#FFFFFF",
+    "borderStyle": "white",
+    "list": [
+      {
+        "pagePath": "pages/index/index",
+        "text": "今日"
+      },
+      {
+        "pagePath": "pages/checkin/checkin",
+        "text": "打卡"
+      },
+      {
+        "pagePath": "pages/workout/workout",
+        "text": "训练"
+      },
+      {
+        "pagePath": "pages/review/review",
+        "text": "复盘"
+      },
+      {
+        "pagePath": "pages/profile/profile",
+        "text": "我的"
+      }
+    ]
+  },
+  "style": "v2",
+  "sitemapLocation": "sitemap.json"
+}

@@ -1,0 +1,34 @@
+<view class="page safe-bottom">
+  <view class="title">坡度快走</view>
+  <view class="subtitle">{{date}} · 能说短句、微喘、出汗，但不是硬撑</view>
+
+  <view class="section card">
+    <view class="row">
+      <view class="field">
+        <text class="label">时间 min</text>
+        <input class="input" type="number" value="{{minutes}}" bindinput="onInput" data-field="minutes" placeholder="35" />
+      </view>
+      <view class="field">
+        <text class="label">速度 km/h</text>
+        <input class="input" type="digit" value="{{speed}}" bindinput="onInput" data-field="speed" placeholder="5.0" />
+      </view>
+    </view>
+    <view class="row">
+      <view class="field">
+        <text class="label">坡度 %</text>
+        <input class="input" type="digit" value="{{incline}}" bindinput="onInput" data-field="incline" placeholder="5" />
+      </view>
+      <view class="field">
+        <text class="label">疲劳 1-5</text>
+        <input class="input" type="number" value="{{fatigue}}" bindinput="onInput" data-field="fatigue" placeholder="3" />
+      </view>
+    </view>
+  </view>
+
+  <view class="section card">
+    <view class="section-title">新手范围</view>
+    <view class="subtitle">第1-2周：坡度5%，30-35分钟。第3-4周：坡度6-8%，35-45分钟。不要扶扶手。</view>
+  </view>
+
+  <button class="button-primary section" bindtap="save">保存坡度快走</button>
+</view>

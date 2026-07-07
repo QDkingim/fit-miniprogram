@@ -1,0 +1,31 @@
+<view class="page safe-bottom">
+  <view class="title">全身力量</view>
+  <view class="subtitle">{{date}} · 轻重量学动作，每组保留2-3次余力</view>
+
+  <view class="section list">
+    <view class="item" wx:for="{{exercises}}" wx:key="name">
+      <view class="item-title">{{item.name}}</view>
+      <view class="item-meta">{{item.sets}}组 · {{item.target}}</view>
+      <view class="row">
+        <view class="field">
+          <text class="label">重量</text>
+          <input class="input" type="digit" value="{{item.weight}}" bindinput="onExerciseInput" data-index="{{index}}" data-field="weight" placeholder="kg" />
+        </view>
+        <view class="field">
+          <text class="label">完成次数</text>
+          <input class="input" type="number" value="{{item.reps}}" bindinput="onExerciseInput" data-index="{{index}}" data-field="reps" placeholder="次数" />
+        </view>
+      </view>
+      <button class="pill {{item.done ? 'active' : ''}}" bindtap="toggleDone" data-index="{{index}}">
+        {{item.done ? "已完成" : "标记完成"}}
+      </button>
+    </view>
+  </view>
+
+  <view class="section card">
+    <view class="section-title">加重量规则</view>
+    <view class="subtitle">同一个动作所有组都能做到12次，下次小幅加重量。肩推不舒服就删掉。</view>
+  </view>
+
+  <button class="button-primary section" bindtap="save">保存训练</button>
+</view>

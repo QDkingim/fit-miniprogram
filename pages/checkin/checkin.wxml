@@ -1,0 +1,45 @@
+<view class="page safe-bottom">
+  <view class="title">每日打卡</view>
+  <view class="subtitle">{{date}} · 只记录影响结果的几件事</view>
+
+  <view class="section card">
+    <view class="row">
+      <view class="field">
+        <text class="label">体重 kg</text>
+        <input class="input" type="digit" value="{{weightKg}}" bindinput="onInput" data-field="weightKg" placeholder="例如 100" />
+      </view>
+      <view class="field">
+        <text class="label">腰围 cm</text>
+        <input class="input" type="digit" value="{{waistCm}}" bindinput="onInput" data-field="waistCm" placeholder="例如 96" />
+      </view>
+    </view>
+
+    <view class="row">
+      <view class="field">
+        <text class="label">步数</text>
+        <input class="input" type="number" value="{{steps}}" bindinput="onInput" data-field="steps" placeholder="6000" />
+      </view>
+      <view class="field">
+        <text class="label">睡眠 小时</text>
+        <input class="input" type="digit" value="{{sleepHours}}" bindinput="onInput" data-field="sleepHours" placeholder="7" />
+      </view>
+    </view>
+
+    <view class="field">
+      <text class="label">饮水 L</text>
+      <input class="input" type="digit" value="{{waterLiters}}" bindinput="onInput" data-field="waterLiters" placeholder="2.5" />
+    </view>
+  </view>
+
+  <view class="section card">
+    <view class="section-title">饮食完成度</view>
+    <view class="pill-row">
+      <button class="pill {{dietMap.protein ? 'active' : ''}}" bindtap="toggleDiet" data-flag="protein">蛋白质够</button>
+      <button class="pill {{dietMap.carb ? 'active' : ''}}" bindtap="toggleDiet" data-flag="carb">主食没超量</button>
+      <button class="pill {{dietMap.vegetable ? 'active' : ''}}" bindtap="toggleDiet" data-flag="vegetable">蔬菜够</button>
+      <button class="pill {{dietMap.sugarFree ? 'active' : ''}}" bindtap="toggleDiet" data-flag="sugarFree">无糖饮料</button>
+    </view>
+  </view>
+
+  <button class="button-primary section" bindtap="save">保存今日打卡</button>
+</view>

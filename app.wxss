@@ -1,0 +1,189 @@
+page {
+  min-height: 100%;
+  background: #f7f8f3;
+  color: #152018;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+}
+
+view,
+text,
+button,
+input,
+textarea {
+  box-sizing: border-box;
+}
+
+.page {
+  min-height: 100vh;
+  padding: 32rpx 28rpx 48rpx;
+}
+
+.section {
+  margin-top: 28rpx;
+}
+
+.card {
+  padding: 28rpx;
+  border: 2rpx solid #e4e8dc;
+  border-radius: 16rpx;
+  background: #ffffff;
+  box-shadow: 0 8rpx 24rpx rgba(24, 32, 24, 0.05);
+}
+
+.title {
+  font-size: 48rpx;
+  font-weight: 800;
+  line-height: 1.12;
+  letter-spacing: 0;
+}
+
+.subtitle {
+  margin-top: 12rpx;
+  color: #697282;
+  font-size: 28rpx;
+  line-height: 1.5;
+}
+
+.section-title {
+  margin-bottom: 16rpx;
+  font-size: 32rpx;
+  font-weight: 700;
+}
+
+.muted {
+  color: #697282;
+}
+
+.metric-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16rpx;
+}
+
+.metric {
+  padding: 22rpx;
+  border-radius: 14rpx;
+  background: #eef7ec;
+}
+
+.metric-value {
+  display: block;
+  font-size: 38rpx;
+  font-weight: 800;
+  line-height: 1.2;
+}
+
+.metric-label {
+  display: block;
+  margin-top: 6rpx;
+  color: #56705a;
+  font-size: 24rpx;
+}
+
+.button-primary,
+.button-secondary {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 92rpx;
+  margin: 0;
+  border-radius: 14rpx;
+  font-size: 30rpx;
+  font-weight: 700;
+  line-height: 1;
+}
+
+.button-primary {
+  background: #16a34a;
+  color: #ffffff;
+}
+
+.button-secondary {
+  border: 2rpx solid #d8dfd2;
+  background: #ffffff;
+  color: #152018;
+}
+
+.field {
+  margin-top: 22rpx;
+}
+
+.label {
+  display: block;
+  margin-bottom: 10rpx;
+  color: #344038;
+  font-size: 26rpx;
+  font-weight: 650;
+}
+
+.input {
+  width: 100%;
+  min-height: 88rpx;
+  padding: 0 24rpx;
+  border: 2rpx solid #d8dfd2;
+  border-radius: 14rpx;
+  background: #ffffff;
+  color: #152018;
+  font-size: 30rpx;
+}
+
+.row {
+  display: flex;
+  align-items: center;
+  gap: 16rpx;
+}
+
+.row > .field {
+  flex: 1;
+}
+
+.pill-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14rpx;
+}
+
+.pill {
+  min-height: 72rpx;
+  padding: 0 22rpx;
+  border: 2rpx solid #d8dfd2;
+  border-radius: 999rpx;
+  background: #ffffff;
+  color: #344038;
+  font-size: 26rpx;
+}
+
+.pill.active {
+  border-color: #16a34a;
+  background: #e7f8ed;
+  color: #0f7133;
+  font-weight: 700;
+}
+
+.list {
+  display: flex;
+  flex-direction: column;
+  gap: 16rpx;
+}
+
+.item {
+  padding: 22rpx;
+  border: 2rpx solid #e4e8dc;
+  border-radius: 14rpx;
+  background: #ffffff;
+}
+
+.item-title {
+  font-size: 28rpx;
+  font-weight: 750;
+}
+
+.item-meta {
+  margin-top: 6rpx;
+  color: #697282;
+  font-size: 24rpx;
+}
+
+.safe-bottom {
+  padding-bottom: env(safe-area-inset-bottom);
+}

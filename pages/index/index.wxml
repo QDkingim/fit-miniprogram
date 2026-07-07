@@ -1,0 +1,38 @@
+<view class="page safe-bottom">
+  <view class="title">今天，完成最小有效动作</view>
+  <view class="subtitle">{{dateText}} · {{weekday}}</view>
+
+  <view class="section card hero-card">
+    <view class="plan-kicker">今日安排</view>
+    <view class="plan-title">{{plan.title}}</view>
+    <view class="plan-detail">{{plan.detail}}</view>
+    <button wx:if="{{plan.action === 'workout'}}" class="button-primary section" bindtap="goWorkout">记录力量训练</button>
+    <button wx:elif="{{plan.action === 'cardio'}}" class="button-primary section" bindtap="goCardio">记录坡度快走</button>
+    <button wx:else class="button-secondary section" bindtap="goCheckin">完成日常打卡</button>
+  </view>
+
+  <view class="section metric-grid">
+    <view class="metric">
+      <text class="metric-value">{{stats.averageWeight || "--"}}kg</text>
+      <text class="metric-label">近14天均重</text>
+    </view>
+    <view class="metric">
+      <text class="metric-value">{{stats.latestWaist || "--"}}cm</text>
+      <text class="metric-label">最近腰围</text>
+    </view>
+    <view class="metric">
+      <text class="metric-value">{{stats.workoutDone}}</text>
+      <text class="metric-label">近14天力量</text>
+    </view>
+    <view class="metric">
+      <text class="metric-value">{{stats.cardioDone}}</text>
+      <text class="metric-label">近14天有氧</text>
+    </view>
+  </view>
+
+  <view class="section card">
+    <view class="section-title">今日基础打卡</view>
+    <view class="subtitle">体重、步数、睡眠和饮食完成度决定复盘是否准确。</view>
+    <button class="button-secondary section" bindtap="goCheckin">去打卡</button>
+  </view>
+</view>

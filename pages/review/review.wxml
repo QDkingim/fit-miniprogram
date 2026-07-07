@@ -1,0 +1,33 @@
+<view class="page safe-bottom">
+  <view class="title">每周复盘</view>
+  <view class="subtitle">只看趋势，不被单日体重波动影响</view>
+
+  <view class="section metric-grid">
+    <view class="metric">
+      <text class="metric-value">{{stats.averageWeight || "--"}}kg</text>
+      <text class="metric-label">近14天均重</text>
+    </view>
+    <view class="metric">
+      <text class="metric-value">{{weightDeltaText}}</text>
+      <text class="metric-label">近14天变化</text>
+    </view>
+    <view class="metric">
+      <text class="metric-value">{{stats.workoutDone}}</text>
+      <text class="metric-label">力量次数</text>
+    </view>
+    <view class="metric">
+      <text class="metric-value">{{stats.cardioDone}}</text>
+      <text class="metric-label">有氧次数</text>
+    </view>
+  </view>
+
+  <view class="section card recommendation">
+    <view class="section-title">调整建议</view>
+    <view class="recommendation-text">{{stats.recommendation}}</view>
+  </view>
+
+  <view class="section card">
+    <view class="section-title">复盘规则</view>
+    <view class="subtitle">连续2周不降：少半拳主食，或多加一次30-40分钟坡度快走。下降过快且疲劳明显：加半拳主食，或减少一次有氧。</view>
+  </view>
+</view>

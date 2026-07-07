@@ -1,0 +1,48 @@
+<view class="page safe-bottom">
+  <view class="title">我的目标</view>
+  <view class="subtitle">这些数据用于计算目标和复盘，不做复杂设置</view>
+
+  <view class="section card">
+    <view class="row">
+      <view class="field">
+        <text class="label">年龄</text>
+        <input class="input" type="number" value="{{profile.age}}" bindinput="onInput" data-field="age" />
+      </view>
+      <view class="field">
+        <text class="label">身高 cm</text>
+        <input class="input" type="number" value="{{profile.heightCm}}" bindinput="onInput" data-field="heightCm" />
+      </view>
+    </view>
+    <view class="row">
+      <view class="field">
+        <text class="label">起始体重 kg</text>
+        <input class="input" type="digit" value="{{profile.startWeightKg}}" bindinput="onInput" data-field="startWeightKg" />
+      </view>
+      <view class="field">
+        <text class="label">目标体重 kg</text>
+        <input class="input" type="digit" value="{{profile.targetWeightKg}}" bindinput="onInput" data-field="targetWeightKg" />
+      </view>
+    </view>
+    <view class="row">
+      <view class="field">
+        <text class="label">当前腰围 cm</text>
+        <input class="input" type="digit" value="{{profile.waistCm}}" bindinput="onInput" data-field="waistCm" />
+      </view>
+      <view class="field">
+        <text class="label">每日步数目标</text>
+        <input class="input" type="number" value="{{profile.stepTarget}}" bindinput="onInput" data-field="stepTarget" />
+      </view>
+    </view>
+    <view class="field">
+      <text class="label">睡眠目标 小时</text>
+      <input class="input" type="digit" value="{{profile.sleepTargetHours}}" bindinput="onInput" data-field="sleepTargetHours" />
+    </view>
+  </view>
+
+  <view class="section card">
+    <view class="section-title">当前计划</view>
+    <view class="subtitle">3天全身力量 + 2-3天跑步机坡度快走。饮食用份量法，不做精确热量计算。</view>
+  </view>
+
+  <button class="button-primary section" bindtap="save">保存资料</button>
+</view>
