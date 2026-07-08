@@ -4,18 +4,28 @@ import { getWorkoutLogs, saveWorkoutLog } from "../../utils/storage";
 
 Page({
   data: {
+    today: todayKey(),
     date: todayKey(),
     exercises: defaultExercises
   },
 
   async onShow() {
-    const date = todayKey();
+    const editDate = wx.getStorageSync("pendingEditDate") || todayKey();
+    wx.setStorageSync("pendingEditDate", "");
+    await this.loadDate(editDate);
+  },
+
+  async loadDate(date: string) {
     const logs = await getWorkoutLogs();
     const log = logs.find((item) => item.date === date);
     this.setData({
       date,
       exercises: log?.exercises || defaultExercises.map((item) => ({ ...item }))
     });
+  },
+
+  onDateChange(event: WechatMiniprogram.PickerChange) {
+    this.loadDate(event.detail.value);
   },
 
   onExerciseInput(event: WechatMiniprogram.Input) {

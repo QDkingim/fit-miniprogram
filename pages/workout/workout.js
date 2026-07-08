@@ -5,17 +5,25 @@ const plan_1 = require("../../utils/plan");
 const storage_1 = require("../../utils/storage");
 Page({
     data: {
+        today: (0, date_1.todayKey)(),
         date: (0, date_1.todayKey)(),
         exercises: plan_1.defaultExercises
     },
     async onShow() {
-        const date = (0, date_1.todayKey)();
+        const editDate = wx.getStorageSync("pendingEditDate") || (0, date_1.todayKey)();
+        wx.setStorageSync("pendingEditDate", "");
+        await this.loadDate(editDate);
+    },
+    async loadDate(date) {
         const logs = await (0, storage_1.getWorkoutLogs)();
         const log = logs.find((item) => item.date === date);
         this.setData({
             date,
             exercises: log?.exercises || plan_1.defaultExercises.map((item) => ({ ...item }))
         });
+    },
+    onDateChange(event) {
+        this.loadDate(event.detail.value);
     },
     onExerciseInput(event) {
         const index = Number(event.currentTarget.dataset.index);

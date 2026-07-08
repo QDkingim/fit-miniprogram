@@ -5,6 +5,7 @@ const storage_1 = require("../../utils/storage");
 const flags = ["protein", "carb", "vegetable", "sugarFree"];
 Page({
     data: {
+        today: (0, date_1.todayKey)(),
         date: (0, date_1.todayKey)(),
         weightKg: "",
         waistCm: "",
@@ -19,7 +20,11 @@ Page({
         }
     },
     async onShow() {
-        const date = (0, date_1.todayKey)();
+        const editDate = wx.getStorageSync("pendingEditDate") || (0, date_1.todayKey)();
+        wx.setStorageSync("pendingEditDate", "");
+        await this.loadDate(editDate);
+    },
+    async loadDate(date) {
         const logs = await (0, storage_1.getDailyLogs)();
         const log = logs.find((item) => item.date === date);
         const dietMap = {
@@ -37,6 +42,9 @@ Page({
             waterLiters: log?.waterLiters || "",
             dietMap
         });
+    },
+    onDateChange(event) {
+        this.loadDate(event.detail.value);
     },
     onInput(event) {
         const field = event.currentTarget.dataset.field;

@@ -9,6 +9,12 @@
     </picker>
   </view>
 
+  <view class="section action-grid">
+    <button class="button-secondary" bindtap="goCheckin">补录打卡</button>
+    <button class="button-secondary" bindtap="goWorkout">补录训练</button>
+    <button class="button-secondary" bindtap="goCardio">补录快走</button>
+  </view>
+
   <view wx:if="{{!hasRecord}}" class="section card empty-card">
     <view class="section-title">暂无记录</view>
     <view class="subtitle">保存打卡、训练或快走后，这里会按日期汇总展示。</view>

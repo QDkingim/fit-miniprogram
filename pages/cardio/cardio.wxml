@@ -3,6 +3,13 @@
   <view class="subtitle">{{date}} · 能说短句、微喘、出汗，但不是硬撑</view>
 
   <view class="section card">
+    <text class="label">记录日期</text>
+    <picker mode="date" value="{{date}}" end="{{today}}" bindchange="onDateChange">
+      <view class="input date-input">{{date}}</view>
+    </picker>
+  </view>
+
+  <view class="section card">
     <view class="row">
       <view class="field">
         <text class="label">时间 min</text>

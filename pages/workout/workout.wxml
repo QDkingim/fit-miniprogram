@@ -2,6 +2,13 @@
   <view class="title">全身力量</view>
   <view class="subtitle">{{date}} · 轻重量学动作，每组保留2-3次余力</view>
 
+  <view class="section card">
+    <text class="label">记录日期</text>
+    <picker mode="date" value="{{date}}" end="{{today}}" bindchange="onDateChange">
+      <view class="input date-input">{{date}}</view>
+    </picker>
+  </view>
+
   <view class="section list">
     <view class="item" wx:for="{{exercises}}" wx:key="name">
       <view class="item-title">{{item.name}}</view>

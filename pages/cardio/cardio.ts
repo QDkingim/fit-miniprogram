@@ -3,6 +3,7 @@ import { getCardioLogs, saveCardioLog } from "../../utils/storage";
 
 Page({
   data: {
+    today: todayKey(),
     date: todayKey(),
     minutes: "35",
     speed: "5.0",
@@ -11,7 +12,12 @@ Page({
   },
 
   async onShow() {
-    const date = todayKey();
+    const editDate = wx.getStorageSync("pendingEditDate") || todayKey();
+    wx.setStorageSync("pendingEditDate", "");
+    await this.loadDate(editDate);
+  },
+
+  async loadDate(date: string) {
     const logs = await getCardioLogs();
     const log = logs.find((item) => item.date === date);
     this.setData({
@@ -21,6 +27,10 @@ Page({
       incline: log?.incline || "5",
       fatigue: log?.fatigue || "3"
     });
+  },
+
+  onDateChange(event: WechatMiniprogram.PickerChange) {
+    this.loadDate(event.detail.value);
   },
 
   onInput(event: WechatMiniprogram.Input) {

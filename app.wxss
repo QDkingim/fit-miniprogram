@@ -134,6 +134,10 @@ textarea {
   font-size: 30rpx;
 }
 
+.date-input {
+  line-height: 88rpx;
+}
+
 .row {
   display: flex;
   align-items: center;

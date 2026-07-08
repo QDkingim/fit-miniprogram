@@ -60,6 +60,18 @@ Page({
         const date = this.data.dates[index];
         this.loadHistory(date);
     },
+    goCheckin() {
+        wx.setStorageSync("pendingEditDate", this.data.selectedDate);
+        wx.switchTab({ url: "/pages/checkin/checkin" });
+    },
+    goWorkout() {
+        wx.setStorageSync("pendingEditDate", this.data.selectedDate);
+        wx.switchTab({ url: "/pages/workout/workout" });
+    },
+    goCardio() {
+        wx.setStorageSync("pendingEditDate", this.data.selectedDate);
+        wx.navigateTo({ url: "/pages/cardio/cardio" });
+    },
     deleteRecord(event) {
         const kind = event.currentTarget.dataset.kind;
         const date = this.data.selectedDate;

@@ -4,6 +4,7 @@ const date_1 = require("../../utils/date");
 const storage_1 = require("../../utils/storage");
 Page({
     data: {
+        today: (0, date_1.todayKey)(),
         date: (0, date_1.todayKey)(),
         minutes: "35",
         speed: "5.0",
@@ -11,7 +12,11 @@ Page({
         fatigue: "3"
     },
     async onShow() {
-        const date = (0, date_1.todayKey)();
+        const editDate = wx.getStorageSync("pendingEditDate") || (0, date_1.todayKey)();
+        wx.setStorageSync("pendingEditDate", "");
+        await this.loadDate(editDate);
+    },
+    async loadDate(date) {
         const logs = await (0, storage_1.getCardioLogs)();
         const log = logs.find((item) => item.date === date);
         this.setData({
@@ -21,6 +26,9 @@ Page({
             incline: log?.incline || "5",
             fatigue: log?.fatigue || "3"
         });
+    },
+    onDateChange(event) {
+        this.loadDate(event.detail.value);
     },
     onInput(event) {
         const field = event.currentTarget.dataset.field;

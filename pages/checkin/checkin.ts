@@ -6,6 +6,7 @@ const flags: DietFlag[] = ["protein", "carb", "vegetable", "sugarFree"];
 
 Page({
   data: {
+    today: todayKey(),
     date: todayKey(),
     weightKg: "",
     waistCm: "",
@@ -21,7 +22,12 @@ Page({
   },
 
   async onShow() {
-    const date = todayKey();
+    const editDate = wx.getStorageSync("pendingEditDate") || todayKey();
+    wx.setStorageSync("pendingEditDate", "");
+    await this.loadDate(editDate);
+  },
+
+  async loadDate(date: string) {
     const logs = await getDailyLogs();
     const log = logs.find((item) => item.date === date);
     const dietMap = {
@@ -39,6 +45,10 @@ Page({
       waterLiters: log?.waterLiters || "",
       dietMap
     });
+  },
+
+  onDateChange(event: WechatMiniprogram.PickerChange) {
+    this.loadDate(event.detail.value);
   },
 
   onInput(event: WechatMiniprogram.Input) {
