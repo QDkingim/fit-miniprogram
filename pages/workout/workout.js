@@ -8,9 +8,10 @@ Page({
         date: (0, date_1.todayKey)(),
         exercises: plan_1.defaultExercises
     },
-    onShow() {
+    async onShow() {
         const date = (0, date_1.todayKey)();
-        const log = (0, storage_1.getWorkoutLogs)().find((item) => item.date === date);
+        const logs = await (0, storage_1.getWorkoutLogs)();
+        const log = logs.find((item) => item.date === date);
         this.setData({
             date,
             exercises: log?.exercises || plan_1.defaultExercises.map((item) => ({ ...item }))
@@ -29,8 +30,8 @@ Page({
             [`exercises[${index}].done`]: !this.data.exercises[index].done
         });
     },
-    save() {
-        (0, storage_1.saveWorkoutLog)({
+    async save() {
+        await (0, storage_1.saveWorkoutLog)({
             date: this.data.date,
             exercises: this.data.exercises
         });

@@ -18,9 +18,10 @@ Page({
             sugarFree: false
         }
     },
-    onShow() {
+    async onShow() {
         const date = (0, date_1.todayKey)();
-        const log = (0, storage_1.getDailyLogs)().find((item) => item.date === date);
+        const logs = await (0, storage_1.getDailyLogs)();
+        const log = logs.find((item) => item.date === date);
         const dietMap = {
             protein: !!log?.dietFlags.includes("protein"),
             carb: !!log?.dietFlags.includes("carb"),
@@ -45,9 +46,9 @@ Page({
         const flag = event.currentTarget.dataset.flag;
         this.setData({ [`dietMap.${flag}`]: !this.data.dietMap[flag] });
     },
-    save() {
+    async save() {
         const dietFlags = flags.filter((flag) => this.data.dietMap[flag]);
-        (0, storage_1.saveDailyLog)({
+        await (0, storage_1.saveDailyLog)({
             date: this.data.date,
             weightKg: Number(this.data.weightKg) || undefined,
             waistCm: Number(this.data.waistCm) || undefined,

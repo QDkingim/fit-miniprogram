@@ -53,5 +53,11 @@ export interface ReviewStats {
   weightDelta?: number;
   workoutDone: number;
   cardioDone: number;
+  trend: {
+    date: string;
+    label: string;
+    weightKg?: number;
+    waistCm?: number;
+  }[];
   recommendation: string;
 }

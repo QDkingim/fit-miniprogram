@@ -10,9 +10,10 @@ Page({
     fatigue: "3"
   },
 
-  onShow() {
+  async onShow() {
     const date = todayKey();
-    const log = getCardioLogs().find((item) => item.date === date);
+    const logs = await getCardioLogs();
+    const log = logs.find((item) => item.date === date);
     this.setData({
       date,
       minutes: log?.minutes || "35",
@@ -27,8 +28,8 @@ Page({
     this.setData({ [field]: event.detail.value });
   },
 
-  save() {
-    saveCardioLog({
+  async save() {
+    await saveCardioLog({
       date: this.data.date,
       minutes: Number(this.data.minutes) || 0,
       speed: Number(this.data.speed) || 0,

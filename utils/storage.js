@@ -9,6 +9,8 @@ exports.getWorkoutLogs = getWorkoutLogs;
 exports.saveWorkoutLog = saveWorkoutLog;
 exports.getCardioLogs = getCardioLogs;
 exports.saveCardioLog = saveCardioLog;
+exports.syncLocalDataToCloud = syncLocalDataToCloud;
+const cloud_1 = require("./cloud");
 const keys = {
     profile: "profile",
     dailyLogs: "dailyLogs",
@@ -25,11 +27,11 @@ exports.defaultProfile = {
     sleepTargetHours: 7.5,
     stepTarget: 6000
 };
-function getList(key) {
+function getLocalList(key) {
     return wx.getStorageSync(key) || [];
 }
-function saveByDate(key, value) {
-    const list = getList(key);
+function saveLocalByDate(key, value) {
+    const list = getLocalList(key);
     const index = list.findIndex((item) => item.date === value.date);
     if (index >= 0) {
         list[index] = value;
@@ -39,27 +41,105 @@ function saveByDate(key, value) {
     }
     wx.setStorageSync(key, list);
 }
-function getProfile() {
-    return wx.getStorageSync(keys.profile) || exports.defaultProfile;
+async function getCloudList(action, localKey) {
+    if (!(0, cloud_1.isCloudReady)()) {
+        return getLocalList(localKey);
+    }
+    try {
+        const list = await (0, cloud_1.callDataService)(action);
+        wx.setStorageSync(localKey, list);
+        return list;
+    }
+    catch {
+        return getLocalList(localKey);
+    }
 }
-function saveProfile(profile) {
+async function getProfile() {
+    const localProfile = wx.getStorageSync(keys.profile) || exports.defaultProfile;
+    if (!(0, cloud_1.isCloudReady)()) {
+        return localProfile;
+    }
+    try {
+        const profile = await (0, cloud_1.callDataService)("getProfile");
+        if (profile) {
+            wx.setStorageSync(keys.profile, profile);
+            return profile;
+        }
+    }
+    catch {
+        return localProfile;
+    }
+    return localProfile;
+}
+async function saveProfile(profile) {
     wx.setStorageSync(keys.profile, profile);
+    if ((0, cloud_1.isCloudReady)()) {
+        try {
+            await (0, cloud_1.callDataService)("saveProfile", profile);
+        }
+        catch {
+            return;
+        }
+    }
 }
 function getDailyLogs() {
-    return getList(keys.dailyLogs);
+    return getCloudList("listDailyLogs", keys.dailyLogs);
 }
-function saveDailyLog(log) {
-    saveByDate(keys.dailyLogs, log);
+async function saveDailyLog(log) {
+    saveLocalByDate(keys.dailyLogs, log);
+    if ((0, cloud_1.isCloudReady)()) {
+        try {
+            await (0, cloud_1.callDataService)("saveDailyLog", log);
+        }
+        catch {
+            return;
+        }
+    }
 }
 function getWorkoutLogs() {
-    return getList(keys.workoutLogs);
+    return getCloudList("listWorkoutLogs", keys.workoutLogs);
 }
-function saveWorkoutLog(log) {
-    saveByDate(keys.workoutLogs, log);
+async function saveWorkoutLog(log) {
+    saveLocalByDate(keys.workoutLogs, log);
+    if ((0, cloud_1.isCloudReady)()) {
+        try {
+            await (0, cloud_1.callDataService)("saveWorkoutLog", log);
+        }
+        catch {
+            return;
+        }
+    }
 }
 function getCardioLogs() {
-    return getList(keys.cardioLogs);
+    return getCloudList("listCardioLogs", keys.cardioLogs);
 }
-function saveCardioLog(log) {
-    saveByDate(keys.cardioLogs, log);
+async function saveCardioLog(log) {
+    saveLocalByDate(keys.cardioLogs, log);
+    if ((0, cloud_1.isCloudReady)()) {
+        try {
+            await (0, cloud_1.callDataService)("saveCardioLog", log);
+        }
+        catch {
+            return;
+        }
+    }
+}
+async function syncLocalDataToCloud() {
+    if (!(0, cloud_1.isCloudReady)()) {
+        return;
+    }
+    try {
+        const profile = wx.getStorageSync(keys.profile);
+        if (profile) {
+            await (0, cloud_1.callDataService)("saveProfile", profile);
+        }
+        await Promise.all([
+            ...getLocalList(keys.dailyLogs).map((log) => (0, cloud_1.callDataService)("saveDailyLog", log)),
+            ...getLocalList(keys.workoutLogs).map((log) => (0, cloud_1.callDataService)("saveWorkoutLog", log)),
+            ...getLocalList(keys.cardioLogs).map((log) => (0, cloud_1.callDataService)("saveCardioLog", log))
+        ]);
+    }
+    catch {
+        return;
+    }
 }

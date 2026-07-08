@@ -9,6 +9,15 @@ function round(value, digits = 1) {
 function buildReviewStats(dailyLogs, workoutLogs, cardioLogs) {
     const dates = (0, date_1.lastNDates)(14);
     const recentDaily = dailyLogs.filter((log) => dates.includes(log.date));
+    const trend = dates.map((date) => {
+        const log = recentDaily.find((item) => item.date === date);
+        return {
+            date,
+            label: date.slice(5),
+            weightKg: log?.weightKg,
+            waistCm: log?.waistCm
+        };
+    });
     const weights = recentDaily
         .map((log) => log.weightKg)
         .filter((value) => typeof value === "number");
@@ -43,6 +52,7 @@ function buildReviewStats(dailyLogs, workoutLogs, cardioLogs) {
         weightDelta,
         workoutDone,
         cardioDone,
+        trend,
         recommendation
     };
 }

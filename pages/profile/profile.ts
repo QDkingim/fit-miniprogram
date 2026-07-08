@@ -1,12 +1,12 @@
-import { getProfile, saveProfile } from "../../utils/storage";
+import { defaultProfile, getProfile, saveProfile } from "../../utils/storage";
 
 Page({
   data: {
-    profile: getProfile()
+    profile: defaultProfile
   },
 
-  onShow() {
-    this.setData({ profile: getProfile() });
+  async onShow() {
+    this.setData({ profile: await getProfile() });
   },
 
   onInput(event: WechatMiniprogram.Input) {
@@ -16,8 +16,8 @@ Page({
     });
   },
 
-  save() {
-    saveProfile(this.data.profile);
+  async save() {
+    await saveProfile(this.data.profile);
     wx.showToast({ title: "已保存", icon: "success" });
   }
 });

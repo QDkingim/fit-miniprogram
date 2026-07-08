@@ -20,9 +20,10 @@ Page({
     }
   },
 
-  onShow() {
+  async onShow() {
     const date = todayKey();
-    const log = getDailyLogs().find((item) => item.date === date);
+    const logs = await getDailyLogs();
+    const log = logs.find((item) => item.date === date);
     const dietMap = {
       protein: !!log?.dietFlags.includes("protein"),
       carb: !!log?.dietFlags.includes("carb"),
@@ -50,9 +51,9 @@ Page({
     this.setData({ [`dietMap.${flag}`]: !this.data.dietMap[flag] });
   },
 
-  save() {
+  async save() {
     const dietFlags = flags.filter((flag) => this.data.dietMap[flag]);
-    saveDailyLog({
+    await saveDailyLog({
       date: this.data.date,
       weightKg: Number(this.data.weightKg) || undefined,
       waistCm: Number(this.data.waistCm) || undefined,

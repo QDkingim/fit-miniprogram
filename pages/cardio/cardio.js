@@ -10,9 +10,10 @@ Page({
         incline: "5",
         fatigue: "3"
     },
-    onShow() {
+    async onShow() {
         const date = (0, date_1.todayKey)();
-        const log = (0, storage_1.getCardioLogs)().find((item) => item.date === date);
+        const logs = await (0, storage_1.getCardioLogs)();
+        const log = logs.find((item) => item.date === date);
         this.setData({
             date,
             minutes: log?.minutes || "35",
@@ -25,8 +26,8 @@ Page({
         const field = event.currentTarget.dataset.field;
         this.setData({ [field]: event.detail.value });
     },
-    save() {
-        (0, storage_1.saveCardioLog)({
+    async save() {
+        await (0, storage_1.saveCardioLog)({
             date: this.data.date,
             minutes: Number(this.data.minutes) || 0,
             speed: Number(this.data.speed) || 0,

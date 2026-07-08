@@ -19,6 +19,7 @@
         "ignoreUploadUnusedFiles": true
     },
     "compileType": "miniprogram",
+    "cloudfunctionRoot": "cloudfunctions/",
     "libVersion": "3.16.2",
     "appid": "wx07d902659796e2b3",
     "projectname": "chengleme",

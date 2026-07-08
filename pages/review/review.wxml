@@ -21,6 +21,18 @@
     </view>
   </view>
 
+  <view class="section card trend-card">
+    <view class="trend-head">
+      <view class="section-title">体重 / 腰围趋势</view>
+      <view class="trend-legend">
+        <view class="legend-item"><text class="legend-dot weight"></text><text>体重</text></view>
+        <view class="legend-item"><text class="legend-dot waist"></text><text>腰围</text></view>
+      </view>
+    </view>
+    <canvas canvas-id="trendChart" class="trend-chart"></canvas>
+    <view class="subtitle">近14天记录越完整，趋势判断越稳定。</view>
+  </view>
+
   <view class="section card recommendation">
     <view class="section-title">调整建议</view>
     <view class="recommendation-text">{{stats.recommendation}}</view>

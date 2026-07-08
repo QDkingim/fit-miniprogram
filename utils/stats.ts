@@ -13,6 +13,15 @@ export function buildReviewStats(
 ): ReviewStats {
   const dates = lastNDates(14);
   const recentDaily = dailyLogs.filter((log) => dates.includes(log.date));
+  const trend = dates.map((date) => {
+    const log = recentDaily.find((item) => item.date === date);
+    return {
+      date,
+      label: date.slice(5),
+      weightKg: log?.weightKg,
+      waistCm: log?.waistCm
+    };
+  });
   const weights = recentDaily
     .map((log) => log.weightKg)
     .filter((value): value is number => typeof value === "number");
@@ -52,6 +61,7 @@ export function buildReviewStats(
     weightDelta,
     workoutDone,
     cardioDone,
+    trend,
     recommendation
   };
 }

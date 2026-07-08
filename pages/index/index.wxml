@@ -11,6 +11,30 @@
     <button wx:else class="button-secondary section" bindtap="goCheckin">完成日常打卡</button>
   </view>
 
+  <view class="section card status-card">
+    <view class="status-head">
+      <view>
+        <view class="section-title">今日完成状态</view>
+        <view class="status-summary">{{todayStatus.pendingText}}</view>
+      </view>
+      <view class="status-count">{{todayStatus.completedCount}}/{{todayStatus.totalCount}}</view>
+    </view>
+    <view class="status-list">
+      <view class="status-item {{todayStatus.dailyDone ? 'done' : ''}}">
+        <text class="status-dot"></text>
+        <text>基础打卡</text>
+      </view>
+      <view class="status-item {{todayStatus.workoutClosed ? 'done' : ''}}">
+        <text class="status-dot"></text>
+        <text>{{todayStatus.workoutLabel}}</text>
+      </view>
+      <view class="status-item {{todayStatus.cardioClosed ? 'done' : ''}}">
+        <text class="status-dot"></text>
+        <text>{{todayStatus.cardioLabel}}</text>
+      </view>
+    </view>
+  </view>
+
   <view class="section metric-grid">
     <view class="metric">
       <text class="metric-value">{{stats.averageWeight || "--"}}kg</text>

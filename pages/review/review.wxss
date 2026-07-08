@@ -9,3 +9,42 @@
   font-weight: 700;
   line-height: 1.55;
 }
+
+.trend-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18rpx;
+}
+
+.trend-legend {
+  display: flex;
+  gap: 14rpx;
+  color: #697282;
+  font-size: 24rpx;
+}
+
+.legend-item {
+  display: flex;
+  align-items: center;
+}
+
+.legend-dot {
+  width: 14rpx;
+  height: 14rpx;
+  margin-right: 6rpx;
+  border-radius: 50%;
+}
+
+.legend-dot.weight {
+  background: #16a34a;
+}
+
+.legend-dot.waist {
+  background: #2563eb;
+}
+
+.trend-chart {
+  width: 662rpx;
+  height: 380rpx;
+}
