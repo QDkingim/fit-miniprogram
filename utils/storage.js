@@ -5,10 +5,13 @@ exports.getProfile = getProfile;
 exports.saveProfile = saveProfile;
 exports.getDailyLogs = getDailyLogs;
 exports.saveDailyLog = saveDailyLog;
+exports.deleteDailyLog = deleteDailyLog;
 exports.getWorkoutLogs = getWorkoutLogs;
 exports.saveWorkoutLog = saveWorkoutLog;
+exports.deleteWorkoutLog = deleteWorkoutLog;
 exports.getCardioLogs = getCardioLogs;
 exports.saveCardioLog = saveCardioLog;
+exports.deleteCardioLog = deleteCardioLog;
 exports.syncLocalDataToCloud = syncLocalDataToCloud;
 const cloud_1 = require("./cloud");
 const keys = {
@@ -39,6 +42,10 @@ function saveLocalByDate(key, value) {
     else {
         list.push(value);
     }
+    wx.setStorageSync(key, list);
+}
+function deleteLocalByDate(key, date) {
+    const list = getLocalList(key).filter((item) => item.date !== date);
     wx.setStorageSync(key, list);
 }
 async function getCloudList(action, localKey) {
@@ -96,6 +103,17 @@ async function saveDailyLog(log) {
         }
     }
 }
+async function deleteDailyLog(date) {
+    deleteLocalByDate(keys.dailyLogs, date);
+    if ((0, cloud_1.isCloudReady)()) {
+        try {
+            await (0, cloud_1.callDataService)("deleteDailyLog", { date });
+        }
+        catch {
+            return;
+        }
+    }
+}
 function getWorkoutLogs() {
     return getCloudList("listWorkoutLogs", keys.workoutLogs);
 }
@@ -110,6 +128,17 @@ async function saveWorkoutLog(log) {
         }
     }
 }
+async function deleteWorkoutLog(date) {
+    deleteLocalByDate(keys.workoutLogs, date);
+    if ((0, cloud_1.isCloudReady)()) {
+        try {
+            await (0, cloud_1.callDataService)("deleteWorkoutLog", { date });
+        }
+        catch {
+            return;
+        }
+    }
+}
 function getCardioLogs() {
     return getCloudList("listCardioLogs", keys.cardioLogs);
 }
@@ -118,6 +147,17 @@ async function saveCardioLog(log) {
     if ((0, cloud_1.isCloudReady)()) {
         try {
             await (0, cloud_1.callDataService)("saveCardioLog", log);
+        }
+        catch {
+            return;
+        }
+    }
+}
+async function deleteCardioLog(date) {
+    deleteLocalByDate(keys.cardioLogs, date);
+    if ((0, cloud_1.isCloudReady)()) {
+        try {
+            await (0, cloud_1.callDataService)("deleteCardioLog", { date });
         }
         catch {
             return;

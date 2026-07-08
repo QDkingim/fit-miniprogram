@@ -13,6 +13,13 @@ declare namespace WechatMiniprogram {
     setStorageSync(key: string, data: any): void;
     createCanvasContext(canvasId: string, component?: any): CanvasContext;
     showToast(options: { title: string; icon?: "success" | "error" | "loading" | "none" }): void;
+    showModal(options: {
+      title: string;
+      content: string;
+      confirmText?: string;
+      confirmColor?: string;
+      success?: (result: { confirm: boolean; cancel: boolean }) => void;
+    }): void;
     switchTab(options: { url: string }): void;
     navigateTo(options: { url: string }): void;
   }
@@ -45,6 +52,12 @@ declare namespace WechatMiniprogram {
   }
 
   interface Input extends BaseEvent {
+    detail: {
+      value: string;
+    };
+  }
+
+  interface PickerChange extends BaseEvent {
     detail: {
       value: string;
     };

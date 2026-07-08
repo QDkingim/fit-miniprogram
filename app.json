@@ -4,6 +4,7 @@
     "pages/checkin/checkin",
     "pages/workout/workout",
     "pages/cardio/cardio",
+    "pages/history/history",
     "pages/review/review",
     "pages/profile/profile"
   ],

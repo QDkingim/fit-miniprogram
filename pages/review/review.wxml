@@ -38,6 +38,8 @@
     <view class="recommendation-text">{{stats.recommendation}}</view>
   </view>
 
+  <button class="button-secondary section" bindtap="goHistory">历史记录</button>
+
   <view class="section card">
     <view class="section-title">复盘规则</view>
     <view class="subtitle">连续2周不降：少半拳主食，或多加一次30-40分钟坡度快走。下降过快且疲劳明显：加半拳主食，或减少一次有氧。</view>

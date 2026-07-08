@@ -18,6 +18,9 @@ Page({
             this.drawTrendChart();
         });
     },
+    goHistory() {
+        wx.navigateTo({ url: "/pages/history/history" });
+    },
     drawTrendChart() {
         const trend = this.data.stats.trend;
         const weights = trend.map((item) => item.weightKg).filter((value) => typeof value === "number");

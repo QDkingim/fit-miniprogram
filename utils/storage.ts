@@ -34,6 +34,11 @@ function saveLocalByDate<T extends { date: string }>(key: string, value: T): voi
   wx.setStorageSync(key, list);
 }
 
+function deleteLocalByDate<T extends { date: string }>(key: string, date: string): void {
+  const list = getLocalList<T>(key).filter((item) => item.date !== date);
+  wx.setStorageSync(key, list);
+}
+
 async function getCloudList<T>(action: string, localKey: string): Promise<T[]> {
   if (!isCloudReady()) {
     return getLocalList<T>(localKey);
@@ -96,6 +101,18 @@ export async function saveDailyLog(log: DailyLog): Promise<void> {
   }
 }
 
+export async function deleteDailyLog(date: string): Promise<void> {
+  deleteLocalByDate<DailyLog>(keys.dailyLogs, date);
+
+  if (isCloudReady()) {
+    try {
+      await callDataService("deleteDailyLog", { date });
+    } catch {
+      return;
+    }
+  }
+}
+
 export function getWorkoutLogs(): Promise<WorkoutLog[]> {
   return getCloudList<WorkoutLog>("listWorkoutLogs", keys.workoutLogs);
 }
@@ -112,6 +129,18 @@ export async function saveWorkoutLog(log: WorkoutLog): Promise<void> {
   }
 }
 
+export async function deleteWorkoutLog(date: string): Promise<void> {
+  deleteLocalByDate<WorkoutLog>(keys.workoutLogs, date);
+
+  if (isCloudReady()) {
+    try {
+      await callDataService("deleteWorkoutLog", { date });
+    } catch {
+      return;
+    }
+  }
+}
+
 export function getCardioLogs(): Promise<CardioLog[]> {
   return getCloudList<CardioLog>("listCardioLogs", keys.cardioLogs);
 }
@@ -122,6 +151,18 @@ export async function saveCardioLog(log: CardioLog): Promise<void> {
   if (isCloudReady()) {
     try {
       await callDataService("saveCardioLog", log);
+    } catch {
+      return;
+    }
+  }
+}
+
+export async function deleteCardioLog(date: string): Promise<void> {
+  deleteLocalByDate<CardioLog>(keys.cardioLogs, date);
+
+  if (isCloudReady()) {
+    try {
+      await callDataService("deleteCardioLog", { date });
     } catch {
       return;
     }

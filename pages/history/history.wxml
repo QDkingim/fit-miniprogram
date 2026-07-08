@@ -1,0 +1,58 @@
+<view class="page safe-bottom">
+  <view class="title">历史记录</view>
+  <view class="subtitle">查看过去的打卡、训练和快走记录，发现填错时可以直接删除。</view>
+
+  <view class="section card">
+    <view class="section-title">选择日期</view>
+    <picker mode="selector" range="{{dates}}" bindchange="onDateChange" disabled="{{!dates.length}}">
+      <view class="picker-value">{{selectedDate || "暂无历史记录"}}</view>
+    </picker>
+  </view>
+
+  <view wx:if="{{!hasRecord}}" class="section card empty-card">
+    <view class="section-title">暂无记录</view>
+    <view class="subtitle">保存打卡、训练或快走后，这里会按日期汇总展示。</view>
+  </view>
+
+  <view wx:if="{{dailyLog}}" class="section card record-card">
+    <view class="record-head">
+      <view class="section-title">每日打卡</view>
+      <button class="delete-button" data-kind="daily" bindtap="deleteRecord">删除</button>
+    </view>
+    <view class="record-grid">
+      <view class="record-item"><text class="record-label">体重</text><text class="record-value">{{dailyLog.weightKg || "--"}}kg</text></view>
+      <view class="record-item"><text class="record-label">腰围</text><text class="record-value">{{dailyLog.waistCm || "--"}}cm</text></view>
+      <view class="record-item"><text class="record-label">步数</text><text class="record-value">{{dailyLog.steps || "--"}}</text></view>
+      <view class="record-item"><text class="record-label">睡眠</text><text class="record-value">{{dailyLog.sleepHours || "--"}}h</text></view>
+      <view class="record-item"><text class="record-label">饮水</text><text class="record-value">{{dailyLog.waterLiters || "--"}}L</text></view>
+      <view class="record-item"><text class="record-label">饮食</text><text class="record-value">{{dietText}}</text></view>
+    </view>
+  </view>
+
+  <view wx:if="{{workoutLog}}" class="section card record-card">
+    <view class="record-head">
+      <view class="section-title">力量训练</view>
+      <button class="delete-button" data-kind="workout" bindtap="deleteRecord">删除</button>
+    </view>
+    <view class="subtitle">{{workoutText}}</view>
+    <view class="list">
+      <view wx:for="{{workoutLog.exercises}}" wx:key="name" class="item">
+        <view class="item-title">{{item.name}}</view>
+        <view class="item-meta">{{item.done ? "已完成" : "未完成"}} · {{item.weight || "--"}}kg · {{item.reps || "--"}}次</view>
+      </view>
+    </view>
+  </view>
+
+  <view wx:if="{{cardioLog}}" class="section card record-card">
+    <view class="record-head">
+      <view class="section-title">坡度快走</view>
+      <button class="delete-button" data-kind="cardio" bindtap="deleteRecord">删除</button>
+    </view>
+    <view class="record-grid">
+      <view class="record-item"><text class="record-label">时间</text><text class="record-value">{{cardioLog.minutes}}分钟</text></view>
+      <view class="record-item"><text class="record-label">速度</text><text class="record-value">{{cardioLog.speed}}</text></view>
+      <view class="record-item"><text class="record-label">坡度</text><text class="record-value">{{cardioLog.incline}}</text></view>
+      <view class="record-item"><text class="record-label">疲劳</text><text class="record-value">{{cardioLog.fatigue}}/5</text></view>
+    </view>
+  </view>
+</view>

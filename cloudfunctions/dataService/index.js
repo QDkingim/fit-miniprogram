@@ -88,6 +88,11 @@ async function saveByDate(openid, collection, log) {
   return { ok: true, id: created._id };
 }
 
+async function removeByDate(openid, collection, date) {
+  await db.collection(collection).where({ _openid: openid, date }).remove();
+  return { ok: true };
+}
+
 exports.main = async (event) => {
   const { OPENID } = cloud.getWXContext();
   const { action, payload } = event;
@@ -101,14 +106,20 @@ exports.main = async (event) => {
       return listByDate(OPENID, collections.dailyLogs);
     case "saveDailyLog":
       return saveByDate(OPENID, collections.dailyLogs, payload);
+    case "deleteDailyLog":
+      return removeByDate(OPENID, collections.dailyLogs, payload.date);
     case "listWorkoutLogs":
       return listByDate(OPENID, collections.workoutLogs);
     case "saveWorkoutLog":
       return saveByDate(OPENID, collections.workoutLogs, payload);
+    case "deleteWorkoutLog":
+      return removeByDate(OPENID, collections.workoutLogs, payload.date);
     case "listCardioLogs":
       return listByDate(OPENID, collections.cardioLogs);
     case "saveCardioLog":
       return saveByDate(OPENID, collections.cardioLogs, payload);
+    case "deleteCardioLog":
+      return removeByDate(OPENID, collections.cardioLogs, payload.date);
     default:
       throw new Error(`Unknown action: ${action}`);
   }
